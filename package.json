@@ -1,0 +1,29 @@
+{
+  "name": "fuel-calculator",
+  "version": "1.0.0",
+  "description": "Calculator for fuel consumption",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamieSullivanD15/Fuel-Calculator.git"
+  },
+  "author": "Jamie Sullivan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JamieSullivanD15/Fuel-Calculator/issues"
+  },
+  "homepage": "https://github.com/JamieSullivanD15/Fuel-Calculator#readme",
+  "devDependencies": {
+    "browser-sync": "^2.24.4",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.4",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-uglify": "^3.0.0"
+  },
+  "dependencies": {}
+}
