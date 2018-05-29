@@ -1,0 +1,43 @@
+
+// Extra Small devices (landscape phones, 576px and below)
+@media (max-width: 576px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  .google-map {
+    height: 50vh;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .google-map {
+    height: 70vh;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .container-fluid {
+    padding: 0px 40px;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .container-fluid {
+    padding: 0px 60px;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .container-fluid {
+    padding: 0px 80px;
+  }
+
+  .google-map {
+    height: 85vh;
+  }
+}

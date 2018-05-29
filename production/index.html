@@ -4,14 +4,105 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
   <link rel="stylesheet" href="/css/style.css">
   <title>Fuel Calculator</title>
 </head>
+
 <body>
-  <h1>Fuel Calculator</h1>
+  <nav class="navbar navbar-dark bg-primary mb-4">
+    <div class="container-fluid">
+      <a href="#" class="navbar-brand">
+        <div class="row align-items-center">
+          <img src="http://via.placeholder.com/60x60">
+          <h1 class="ml-3">Fuel Calculator</h1>
+        </div>
+      </a>
+    </div>
+  </nav> <!-- header -->
 
-  <script src="./js/main.js">
+  <div class="container-fluid">
+    <div class="row mb-5" id="main-row">
+      <div class="col-lg-8">
+        <div id="map" class="google-map"></div>
+      </div> <!-- column 1 -->
 
-  </script>
+      <div class="col-lg-4">
+        <form class="mb-3 mt-3 mt-lg-0" id="start-location-form">
+          <label for="start-location">Start Location</label>
+          <input type="text" id="start-location-input" class="form-control" autocomplete="off">
+        </form> <!-- Start Location -->
+
+        <form class="mb-3" id="end-location-form">
+          <label for="end-location">End Location</label>
+          <input type="text" id="end-location-input" class="form-control" autocomplete="off">
+        </form> <!-- End Location -->
+
+        <div class="mb-3">
+          <label for="total-distance">Total Distance</label>
+          <div class="input-group">
+            <input type="number" class="form-control" placeholder="0.00">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary dropdown-toggle" id="distance-unit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Miles</button>
+              <div class="dropdown-menu">
+                <a onclick="switchToKilometres()" class="dropdown-item" href="javascript:void(0)">Km</a>
+                <a onclick="switchToMiles()" class="dropdown-item" href="javascript:void(0)">Miles</a>
+              </div>
+            </div>
+          </div>
+        </div> <!-- Total Distance -->
+
+        <form class="mb-3" id="fuel-cost-form">
+          <label for="fuel-cost"><strong>Fuel Cost</strong></label>
+          <div class="input-group">
+            <input type="number" class="form-control" placeholder="0.00">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary dropdown-toggle" id="fuel-cost-unit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Per Gal</button>
+              <div class="dropdown-menu">
+                <a onclick="switchToPerLtr()" class="dropdown-item" href="javascript:void(0)">Per Ltr</a>
+                <a onclick="switchToPerGal()" class="dropdown-item" href="javascript:void(0)">Per Gal</a>
+              </div>
+            </div>
+          </div>
+        </form>  <!-- Fuel Cost -->
+
+        <form class="mb-3">
+          <label for="fuel-consumption"><strong>Fuel Consumption</strong></label>
+          <div class="input-group">
+            <input type="number" class="form-control" placeholder="0.00">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary dropdown-toggle" id="consumption-unit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MPG</button>
+              <div class="dropdown-menu">
+                <a onclick="switchToLPKM()" class="dropdown-item" href="javascript:void(0)">Ltr/Km</a>
+                <a onclick="switchToMPG()" class="dropdown-item" href="javascript:void(0)">MPG</a>
+              </div>
+            </div>
+          </div>
+        </form>  <!-- Fuel Consumption -->
+
+        <div class="row">
+          <div class="col-sm-6 mb-3 align-self-end">
+            <button onclick="calculateCost()" class="btn btn-success btn-block" type="button"><strong>Calculate</strong></button>
+          </div>
+          <div class="col-sm-6 mb-3">
+            <label for="end-location"><strong>Fuel Cost</strong></label>
+            <ul class="list-group">
+              <li class="list-group-item">&euro; 0.00</li>
+            </ul>
+          </div>
+        </div> <!-- row -->
+
+      </div> <!-- column 2 -->
+    </div> <!-- row main-row -->
+  </div> <!-- container-fluid - main wrapper -->
+
+  <!-- <footer class="bg-primary align-items-center">&copy; Jamie Sullivan</footer> -->
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <script src="./js/main.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNzkiCpla_K_p7-3O4tpSfy8N7ZOto5io&callback=createMap"></script>
 </body>
 </html>
