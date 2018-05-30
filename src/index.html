@@ -41,7 +41,7 @@
         <div class="mb-3">
           <label for="total-distance">Total Distance</label>
           <div class="input-group">
-            <input type="number" class="form-control" placeholder="0.00">
+            <input id="total-distance-input" type="number" class="form-control" value=100>
             <div class="input-group-append">
               <button class="btn btn-outline-secondary dropdown-toggle" id="distance-unit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Miles</button>
               <div class="dropdown-menu">
@@ -55,7 +55,7 @@
         <form class="mb-3" id="fuel-cost-form">
           <label for="fuel-cost"><strong>Fuel Cost</strong></label>
           <div class="input-group">
-            <input type="number" class="form-control" placeholder="0.00">
+            <input id="fuel-cost-input" type="number" class="form-control" value=0.00>
             <div class="input-group-append">
               <button class="btn btn-outline-secondary dropdown-toggle" id="fuel-cost-unit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Per Gal</button>
               <div class="dropdown-menu">
@@ -69,7 +69,7 @@
         <form class="mb-3">
           <label for="fuel-consumption"><strong>Fuel Consumption</strong></label>
           <div class="input-group">
-            <input type="number" class="form-control" placeholder="0.00">
+            <input id="fuel-consumption-input" type="number" class="form-control" value=40>
             <div class="input-group-append">
               <button class="btn btn-outline-secondary dropdown-toggle" id="consumption-unit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MPG</button>
               <div class="dropdown-menu">
@@ -90,7 +90,7 @@
               <li class="list-group-item">&euro; 0.00</li>
             </ul>
           </div>
-        </div> <!-- row -->
+        </div> <!-- Calculate Fuel Cost -->
 
       </div> <!-- column 2 -->
     </div> <!-- row main-row -->
