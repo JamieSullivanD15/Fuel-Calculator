@@ -1,91 +1,57 @@
 
-// Units selected by dropdown menu
+// Unit that was selected by dropdown menu
 const distanceUnit = document.getElementById('distance-unit'),
       fuelCostUnit = document.getElementById('fuel-cost-unit'),
       consumptionUnit = document.getElementById('consumption-unit');
+
+// Error message and fuel cost field at the bottom of the layout
+const errorMessage = document.getElementById('error-message'),
+      totalCostField = document.getElementById('total-cost');
 
 // Input fields for each measurement
 let distanceInput = document.getElementById('total-distance-input'),
     costInput = document.getElementById('fuel-cost-input'),
     consumptionInput = document.getElementById('fuel-consumption-input');
 
-// Accurate values of each field
-let distance = cost = consumption = 0;
 
-
+// --- DROPDOWN UNIT SELECTION ---
 // --- DISTANCE ---
-// 1 Mile is 1.60934 Kilometres
-function switchToKilometres() {
-  if (distanceUnit.innerHTML === 'Miles') {
-    distance = distanceInput.value * 1.60934;
-    distanceInput.value = distance.toFixed(2);
+function switchDistanceUnit(unit) {
+  if (unit === 'Km') {
+    distanceUnit.innerHTML = 'Kilometres';
+  } else if (unit === 'Miles') {
+    distanceUnit.innerHTML = 'Miles';
+  } else {
+    console.log('Incorrect unit was passed');
   }
-  distanceUnit.innerHTML = 'Km';
-}
-
-function switchToMiles() {
-  if (distanceUnit.innerHTML === 'Km') {
-    distance = distanceInput.value / 1.60934;
-    distanceInput.value = distance.toFixed(2);
-  }
-  distanceUnit.innerHTML = 'Miles';
 }
 
 // --- FUEL COST ---
-// 1 MPG is 0.354006 KM per Litre
-function switchToPerLtr() {
-  console.log('\nLitre Switch');
-  console.log(cost + ' - Variable');
-  console.log(costInput.value + ' - Input');
-  if (fuelCostUnit.innerHTML === 'Per Gal') {
-    cost = costInput.value / 4.54609;
-    costInput.value = Number(cost.toFixed(2));
+function switchFuelCostUnit(unit) {
+  if (unit === 'Ltr') {
+    fuelCostUnit.innerHTML = 'Per Ltr';
+  } else if (unit === 'US') {
+    fuelCostUnit.innerHTML = 'Per Gal (US)';
+  } else if (unit === 'UK') {
+    fuelCostUnit.innerHTML = 'Per Gal (UK)';
+  } else {
+    console.log('Incorrect unit was passed');
   }
-  fuelCostUnit.innerHTML = 'Per Ltr';
-}
-
-function switchToPerGal() {
-  console.log('\nGallon Switch');
-  console.log(cost + ' - Variable');
-  console.log(costInput.value + ' - Input');
-  if (fuelCostUnit.innerHTML === 'Per Ltr') {
-    cost = costInput.value * 4.54609;
-    costInput.value = Number(cost.toFixed(2));
-  }
-  fuelCostUnit.innerHTML = 'Per Gal';
 }
 
 // --- FUEL CONSUMPTION ---
-// 1 Imperial Gallon is 4.54609 Litre's
-function switchToLPKM() {
-  if (consumptionUnit.innerHTML === 'MPG') {
-    consumptionInput.value = Math.round((consumptionInput.value * 0.354006) * 100) / 100;
+function switchFuelConsumptionUnit(unit) {
+  if (unit === 'Km/Ltr') {
+    consumptionUnit.innerHTML = 'Km/Ltr';
+  } else if (unit === 'Ltr/100Km') {
+    consumptionUnit.innerHTML = 'Ltr/100Km';
+  } else if (unit === 'US') {
+    consumptionUnit.innerHTML = 'MPG (US)';
+  } else if (unit === 'UK') {
+    consumptionUnit.innerHTML = 'MPG (UK)';
+  } else {
+    console.log('Incorrect unit was passed');
   }
-  consumptionUnit.innerHTML = 'Ltr/Km';
-}
-
-function switchToMPG() {
-  if (consumptionUnit.innerHTML === 'Ltr/Km') {
-    consumptionInput.value = Math.round((consumptionInput.value / 0.354006) * 100) / 100;
-  }
-  consumptionUnit.innerHTML = 'MPG';
-}
-
-// Distance / Consumption * Fuel Cost
-function calculateCost() {
-  let totalCost = 0;
-  let consumption = 0;
-
-  // consumptionUnit.innerHTML === 'Ltr/Km' ? consumption = (fuelConsumption.value / 0.354006) :
-  // consumption = Number(fuelConsumption.value);
-
-  console.log(consumption);
-
-  // if (distance !== 0 && consumption !== 0 && cost !== 0) {
-  //   totalCost = distance / consumption * cost;
-  // }
-  //
-  // console.log(totalCost);
 }
 
 
@@ -108,21 +74,70 @@ function searchEndLocation(e) {
 }
 
 
-// // Distance / Consumption * Fuel Cost
-// function calculateCost() {
-//   let totalCost,
-//       distance = document.getElementById('total-distance-input').value,
-//       cost = document.getElementById('fuel-cost-input').value,
-//       consumption = document.getElementById('fuel-consumption-input').value;
-//
-//
-//
-//   if (distance !== 0 && consumption !== 0 && cost !== 0) {
-//     totalCost = distance / consumption * cost;
-//   }
-//
-//   console.log(totalCost);
-// }
+function calculateCost() {
+  let units;
+  let totalCost;
+
+  if (Number(distanceInput.value) !== 0 && Number(consumptionInput.value) !== 0 && Number(costInput.value) !== 0) {
+    units = convertUnits();
+  } else {
+    errorMessage.style = 'display: flex;';
+    setTimeout(function() {
+      errorMessage.style = 'display: none;';
+    }, 3000);
+    return;
+  }
+
+  // Distance / Consumption * Fuel Cost = Total Cost
+  totalCost = (units['distance'].value / units['consumption'].value) *     units['cost'].value;
+
+  totalCostField.innerHTML = '&euro; ' + totalCost.toFixed(2);
+}
+
+function convertUnits() {
+  let distance = cost = consumption = 0;
+  let units = [];
+
+  // Distance will always be measured in KM
+  // 1 Mile is 1.609344 Kilometres
+  distanceUnit.innerHTML === 'Miles' ?
+    distance = distanceInput.value * 1.609344:
+    distance = Number(distanceInput.value);
+
+  // Fuel cost will always be measured by Per Litre
+  // 1 Imperial Gallon is = 4.54609 Litre's || 1.20095 US Gallons
+  if (fuelCostUnit.innerHTML === 'Per Gal (UK)') {
+    cost = costInput.value / 4.54609;
+  } else if (fuelCostUnit.innerHTML === 'Per Gal (US)') {
+    cost = costInput.value / 3.78541;
+  } else {
+    cost = Number(costInput.value);
+  }
+
+  // To be measured in KM Per Litre
+  // Convert MPG to L/100km then to km/L
+  if (consumptionUnit.innerHTML === 'MPG (UK)') {
+    // 1 Imperial Gallon = 4.54609 Liters - 1 Mile = 1.609344 Kms
+    consumption = (100 * 4.54609) / (1.609344 * consumptionInput.value);
+    consumption = 100 / consumption;
+  } else if (consumptionUnit.innerHTML === 'MPG (US)') {
+    // 1 US Gallon = 3.78541 Liters - 1 Mile = 1.609344 Kms
+    consumption = (100 * 3.78541) / (1.609344 * consumptionInput.value);
+    consumption = 100 / consumption;
+  } else if (consumptionUnit.innerHTML === 'Ltr/100Km') {
+    // Convert to km/L
+    consumption = 100 / consumptionInput.value;
+  } else {
+    consumption = Number(consumptionInput.value);
+  }
+
+  // Add values as a hashmap
+  units['distance'] = {value: distance};
+  units['cost'] = {value: cost};
+  units['consumption'] = {value: consumption};
+
+  return units;
+}
 
 
 function createMap() {
