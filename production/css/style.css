@@ -6,13 +6,41 @@ h1 {
 
 label {
   font-weight: bold;
-  font-size: 16px; }
+  font-size: 16px;
+  padding: 0;
+  margin: 0 0 -10px 0; }
 
 .list-group-item {
   height: 37px;
   padding: 6px 0 6px 5px;
   display: flex;
   vertical-align: middle; }
+
+.asterisk {
+  color: red;
+  font-size: 24px;
+  padding-left: 5px;
+  vertical-align: top; }
+
+#error-message, #calculate-button {
+  font-weight: bold; }
+
+#calculate-button {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  #calculate-button i {
+    font-size: 20px;
+    padding-right: 10px; }
+
+#error-message {
+  margin-top: 20px;
+  display: none;
+  align-items: center; }
+  #error-message i {
+    font-size: 26px;
+    padding-right: 10px; }
 
 @media (max-width: 576px) {
   h1 {

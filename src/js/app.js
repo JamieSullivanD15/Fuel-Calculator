@@ -1,28 +1,55 @@
 
-const consumptionUnit = document.getElementById('consumption-unit');
-const distanceUnit = document.getElementById('distance-unit');
-const fuelCostUnit = document.getElementById('fuel-cost-unit');
+// Unit that was selected by dropdown menu
+const distanceUnit = document.getElementById('distance-unit'),
+      fuelCostUnit = document.getElementById('fuel-cost-unit'),
+      consumptionUnit = document.getElementById('consumption-unit');
 
-function switchToLPKM() {
-  consumptionUnit.innerHTML = 'Ltr/Km';
+// Error message and fuel cost field at the bottom of the layout
+const errorMessage = document.getElementById('error-message'),
+      totalCostField = document.getElementById('total-cost');
+
+// Input fields for each measurement
+let distanceInput = document.getElementById('total-distance-input'),
+    costInput = document.getElementById('fuel-cost-input'),
+    consumptionInput = document.getElementById('fuel-consumption-input');
+
+
+// --- DROPDOWN UNIT SELECTION ---
+// --- DISTANCE ---
+function switchDistanceUnit(unit) {
+  if (unit === 'Km') {
+    distanceUnit.innerHTML = 'Kilometres';
+  } else if (unit === 'Miles') {
+    distanceUnit.innerHTML = 'Miles';
+  } else {
+    console.log('Incorrect unit was passed');
+  }
 }
 
-function switchToMPG() {
-  consumptionUnit.innerHTML = 'MPG';
+// --- FUEL COST ---
+function switchFuelCostUnit(unit) {
+  if (unit === 'Ltr') {
+    fuelCostUnit.innerHTML = 'Per Ltr';
+  } else if (unit === 'US') {
+    fuelCostUnit.innerHTML = 'Per Gal (US)';
+  } else if (unit === 'UK') {
+    fuelCostUnit.innerHTML = 'Per Gal (UK)';
+  } else {
+    console.log('Incorrect unit was passed');
+  }
 }
 
-function switchToKilometres() {
-  distanceUnit.innerHTML = 'Km';
-}
-
-function switchToMiles() {
-  distanceUnit.innerHTML = 'Miles';
-}
-
-function switchToPerLtr() {
-  fuelCostUnit.innerHTML = 'Per Ltr';
-}
-
-function switchToPerGal() {
-  fuelCostUnit.innerHTML = 'Per Gal';
+// --- FUEL CONSUMPTION ---
+function switchFuelConsumptionUnit(unit) {
+  if (unit === 'Km/Ltr') {
+    consumptionUnit.innerHTML = 'Km/Ltr';
+  } else if (unit === 'Ltr/100Km') {
+    consumptionUnit.innerHTML = 'Ltr/100Km';
+  } else if (unit === 'US') {
+    consumptionUnit.innerHTML = 'MPG (US)';
+  } else if (unit === 'UK') {
+    consumptionUnit.innerHTML = 'MPG (UK)';
+  } else {
+    console.log('Incorrect unit was passed');
+  }
 }
