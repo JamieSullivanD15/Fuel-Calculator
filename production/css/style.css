@@ -29,9 +29,9 @@ label {
   font-size: 18px;
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  padding: 4px 0; }
   #calculate-button i {
-    font-size: 20px;
     padding-right: 10px; }
 
 #error-message {
@@ -39,7 +39,7 @@ label {
   display: none;
   align-items: center; }
   #error-message i {
-    font-size: 26px;
+    font-size: 22px;
     padding-right: 10px; }
 
 @media (max-width: 576px) {
