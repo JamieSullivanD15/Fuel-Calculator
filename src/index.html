@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
-  <script src="https://use.fontawesome.com/74acd2adac.js"></script>
   <link rel="stylesheet" href="/css/style.css">
   <title>Fuel Calculator</title>
 </head>
@@ -29,6 +28,9 @@
       </div> <!-- column 1 -->
 
       <div class="col-lg-4">
+        <button onclick="calculateRoute()" class="btn btn-success btn-block" type="button">
+          Calculate Route
+        </button>
         <form class="mb-3 mt-3 mt-lg-0" id="start-location-form">
           <label for="start-location">Start Location</label>
           <input type="text" id="start-location-input" class="form-control" autocomplete="off">
@@ -45,7 +47,7 @@
             <span class="asterisk">*</span>
           </label>
           <div class="input-group">
-            <input id="total-distance-input" type="number" class="form-control" value=50>
+            <input id="total-distance-input" type="number" class="form-control">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary dropdown-toggle" id="distance-unit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kilometres</button>
               <div class="dropdown-menu">
@@ -123,7 +125,7 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+  <script src="https://use.fontawesome.com/74acd2adac.js"></script>
   <script src="./js/main.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNzkiCpla_K_p7-3O4tpSfy8N7ZOto5io&callback=createMap"></script>
 </body>

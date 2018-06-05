@@ -2,17 +2,17 @@
 const startLocation = document.getElementById('start-location-form'),
       endLocation = document.getElementById('end-location-form');
 
-startLocation.addEventListener('submit', searchStartLocation);
-endLocation.addEventListener('submit', searchEndLocation);
+startLocation.addEventListener('submit', getStartLocation);
+endLocation.addEventListener('submit', getEndLocation);
 
-function searchStartLocation(e) {
-  e.preventDefault();
+function getStartLocation(e) {
   let location = document.getElementById('start-location-input').value;
-  console.log(location);
+  searchLocation(location);
+  e.preventDefault();
 }
 
-function searchEndLocation(e) {
-  e.preventDefault();
+function getEndLocation(e) {
   let location = document.getElementById('end-location-input').value;
-  console.log(location);
+  searchLocation(location);
+  e.preventDefault();
 }
