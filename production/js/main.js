@@ -5,7 +5,8 @@ const distanceUnit = document.getElementById('distance-unit'),
       consumptionUnit = document.getElementById('consumption-unit');
 
 // Error message and fuel cost field at the bottom of the layout
-const errorMessage = document.getElementById('error-message'),
+const caculateError = document.getElementById('calculate-error'),
+      locationError = document.getElementById('location-error'),
       totalCostField = document.getElementById('total-cost');
 
 // Input fields for each measurement
@@ -17,7 +18,7 @@ let distanceInput = document.getElementById('total-distance-input'),
 // --- DROPDOWN UNIT SELECTION ---
 // --- DISTANCE ---
 function switchDistanceUnit(unit) {
-  if (unit === 'Km') {
+  if (unit === 'Kilometres') {
     distanceUnit.innerHTML = 'Kilometres';
   } else if (unit === 'Miles') {
     distanceUnit.innerHTML = 'Miles';
@@ -55,35 +56,19 @@ function switchFuelConsumptionUnit(unit) {
 }
 
 
-const startLocation = document.getElementById('start-location-form'),
-      endLocation = document.getElementById('end-location-form');
-
-startLocation.addEventListener('submit', getStartLocation);
-endLocation.addEventListener('submit', getEndLocation);
-
-function getStartLocation(e) {
-  let location = document.getElementById('start-location-input').value;
-  searchLocation(location);
-  e.preventDefault();
-}
-
-function getEndLocation(e) {
-  let location = document.getElementById('end-location-input').value;
-  searchLocation(location);
-  e.preventDefault();
-}
-
-
 function calculateCost() {
   let units;
   let totalCost;
+  console.log(distanceInput.value );
+  console.log(consumptionInput.value );
+  console.log(costInput.value );
 
   if (distanceInput.value != 0 && consumptionInput.value != 0 && costInput.value != 0) {
     units = convertUnits();
   } else {
-    errorMessage.style = 'display: flex;';
+    caculateError.style = 'display: flex;';
     setTimeout(function() {
-      errorMessage.style = 'display: none;';
+      caculateError.style = 'display: none;';
     }, 3000);
     return;
   }
@@ -141,14 +126,16 @@ function convertUnits() {
 
 
 const apiKey = 'AIzaSyBNzkiCpla_K_p7-3O4tpSfy8N7ZOto5io';
-let map;
+let map, directionsDisplay, directionsService;
 
 function createMap() {
-
-
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34, lng: 151},
     scrollwheel: true,
+  });
+
+  directionsDisplay = new google.maps.DirectionsRenderer({
+    draggable: true,
+    map: map
   });
 
   // Try Geolocation
@@ -170,31 +157,31 @@ function createMap() {
   }
 }
 
-function createMarker(position) {
-  var marker = new google.maps.Marker({
-    position: position,
-    title:"Hello World!"
+function calculateRoute() {
+  let startLocation = document.getElementById('start-location-input'),
+      endLocation = document.getElementById('end-location-input');
+
+  directionsService = new google.maps.DirectionsService();
+
+  directionsDisplay.addListener('directions_changed', function() {
+    computeTotalDistance(directionsDisplay.getDirections());
   });
 
-  marker.setMap(map);
-  map.setCenter(position);
-  map.setZoom(12);
-}
-
-function computeTotalDistance(result) {
-  var total = 0;
-  var myroute = result.routes[0];
-  for (var i = 0; i < myroute.legs.length; i++) {
-    total += myroute.legs[i].distance.value;
+  if (startLocation.value != '' && endLocation.value != '') {
+    displayRoute(startLocation.value, endLocation.value, directionsService, directionsDisplay);
+  } else {
+    locationError.style = 'display: flex;';
+    setTimeout(function() {
+      locationError.style = 'display: none;';
+    }, 3000);
+    return;
   }
-  total = total / 1000;
-  distanceInput.value = total.toFixed(2);
 }
 
-function displayRoute(origin, destination, service, display) {
+function displayRoute(startLocation, endLocation, service, display) {
   service.route({
-    origin: origin,
-    destination: destination,
+    origin: startLocation,
+    destination: endLocation,
     travelMode: 'DRIVING',
     avoidTolls: false
   }, function(response, status) {
@@ -206,28 +193,13 @@ function displayRoute(origin, destination, service, display) {
   });
 }
 
-
-function calculateRoute() {
-  var directionsService = new google.maps.DirectionsService();
-
-  var directionsDisplay = new google.maps.DirectionsRenderer({
-    draggable: true,
-    map: map,
-    panel: document.getElementById('right-panel')
-  });
-
-  directionsDisplay.addListener('directions_changed', function() {
-    computeTotalDistance(directionsDisplay.getDirections());
-  });
-
-  displayRoute('Santry Dublin', 'Bull Island Dublin', directionsService, directionsDisplay);
-}
-
-async function searchLocation(location) {
-  const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${apiKey}`);
-  const responseData = await response.json();
-  console.log(responseData);
-
-  let position = responseData.results[0].geometry.location;
-  createMarker(position);
+function computeTotalDistance(result) {
+  let total = 0;
+  let route = result.routes[0];
+  for (let i = 0; i < route.legs.length; i++) {
+    total += route.legs[i].distance.value;
+  }
+  total = total / 1000;
+  distanceInput.value = total.toFixed(2);
+  distanceUnit.innerHTML = 'Kilometres';
 }

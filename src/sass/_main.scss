@@ -10,7 +10,7 @@ label {
   font-weight: bold;
   font-size: 16px;
   padding: 0;
-  margin: 0 0 -10px 0;
+  margin: 0 0 -15px 0;
 }
 
 .list-group-item {
@@ -27,11 +27,24 @@ label {
   vertical-align: top;
 }
 
-#error-message, #calculate-button {
+.error {
   font-weight: bold;
+  //margin-top: 20px;
+  display: none;
+  align-items: center;
+
+  i {
+    font-size: 22px;
+    padding-right: 10px;
+  }
 }
 
-#calculate-button{
+#location-error, #calculate-error {
+  @extend .error;
+}
+
+#calculate-button {
+  font-weight: bold;
   font-size: 18px;
   display: flex;
   align-items: center;
@@ -39,17 +52,6 @@ label {
   padding: 4px 0;
 
   i {
-    padding-right: 10px;
-  }
-}
-
-#error-message {
-  margin-top: 20px;
-  display: none;
-  align-items: center;
-
-  i {
-    font-size: 22px;
     padding-right: 10px;
   }
 }

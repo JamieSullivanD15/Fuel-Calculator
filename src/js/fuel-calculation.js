@@ -2,13 +2,16 @@
 function calculateCost() {
   let units;
   let totalCost;
+  console.log(distanceInput.value );
+  console.log(consumptionInput.value );
+  console.log(costInput.value );
 
   if (distanceInput.value != 0 && consumptionInput.value != 0 && costInput.value != 0) {
     units = convertUnits();
   } else {
-    errorMessage.style = 'display: flex;';
+    caculateError.style = 'display: flex;';
     setTimeout(function() {
-      errorMessage.style = 'display: none;';
+      caculateError.style = 'display: none;';
     }, 3000);
     return;
   }

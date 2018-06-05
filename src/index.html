@@ -22,49 +22,49 @@
   </nav> <!-- header -->
 
   <div class="container-fluid">
-    <div class="row mb-5" id="main-row">
+    <div class="row" id="main-row">
       <div class="col-lg-8">
         <div id="map" class="google-map"></div>
       </div> <!-- column 1 -->
 
-      <div class="col-lg-4">
-        <button onclick="calculateRoute()" class="btn btn-success btn-block" type="button">
-          Calculate Route
-        </button>
-        <form class="mb-3 mt-3 mt-lg-0" id="start-location-form">
-          <label for="start-location">Start Location</label>
-          <input type="text" id="start-location-input" class="form-control" autocomplete="off">
-        </form> <!-- Start Location -->
+      <div class="col-lg-4 mt-3 mt-md-0">
+        <label for="start-location">Start Location</label>
+        <input type="text" id="start-location-input" class="form-control mb-3" autocomplete="off"> <!-- Start Location -->
 
-        <form class="mb-3" id="end-location-form">
-          <label for="end-location">End Location</label>
-          <input type="text" id="end-location-input" class="form-control" autocomplete="off">
-        </form> <!-- End Location -->
+        <label for="end-location">End Location</label>
+        <input type="text" id="end-location-input" class="form-control" autocomplete="off"> <!-- End Location -->
 
-        <div class="mb-3">
+        <button onclick="calculateRoute()" class="btn btn-success btn-block my-3" type="button">Search</button>
+
+        <div id="location-error" class="alert alert-danger" role="alert">
+          <i class="fa fa-exclamation-circle"></i>
+          Please enter a start and end location
+        </div>
+
+        <div class="mt-3">
           <label for="total-distance">
             Total Distance
             <span class="asterisk">*</span>
           </label>
           <div class="input-group">
-            <input id="total-distance-input" type="number" class="form-control">
+            <input id="total-distance-input" type="number" class="form-control" placeholder="0.00">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary dropdown-toggle" id="distance-unit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kilometres</button>
               <div class="dropdown-menu">
-                <a onclick="switchDistanceUnit('Km')" class="dropdown-item" href="javascript:void(0)">Kilometres</a>
+                <a onclick="switchDistanceUnit('Kilometres')" class="dropdown-item" href="javascript:void(0)">Kilometres</a>
                 <a onclick="switchDistanceUnit('Miles')" class="dropdown-item" href="javascript:void(0)">Miles</a>
               </div>
             </div>
           </div>
         </div> <!-- Total Distance -->
 
-        <form class="mb-3" id="fuel-cost-form">
+        <form class="mt-3" id="fuel-cost-form">
           <label for="fuel-cost">
             <strong>Fuel Cost</strong>
             <span class="asterisk">*</span>
           </label>
           <div class="input-group">
-            <input id="fuel-cost-input" type="number" class="form-control" value=1.29>
+            <input id="fuel-cost-input" type="number" class="form-control" placeholder=0.00>
             <div class="input-group-append">
               <button class="btn btn-outline-secondary dropdown-toggle" id="fuel-cost-unit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Per Ltr</button>
               <div class="dropdown-menu">
@@ -76,14 +76,14 @@
           </div>
         </form>  <!-- Fuel Cost -->
 
-        <form class="mb-3">
+        <form class="mt-3">
           <label for="fuel-consumption">
             <strong>Fuel Consumption</strong>
             <span class="asterisk">*</span>
           </label>
 
           <div class="input-group">
-            <input id="fuel-consumption-input" type="number" class="form-control" value=45>
+            <input id="fuel-consumption-input" type="number" class="form-control" placeholder=0.00>
             <div class="input-group-append">
               <button class="btn btn-outline-secondary dropdown-toggle" id="consumption-unit" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ltr/100Km</button>
               <div class="dropdown-menu">
@@ -96,14 +96,14 @@
           </div>
         </form>  <!-- Fuel Consumption -->
 
-        <div class="row">
-          <div class="col-sm-6 mb-3 align-self-end">
-            <button onclick="calculateCost()" id="calculate-button" class="btn btn-success btn-block" type="button">
+        <div class="row mb-3">
+          <div class="col-sm-6 align-self-end">
+            <button onclick="calculateCost()" id="calculate-button" class="btn btn-success btn-block mt-3" type="button">
               <i class="fa fa-calculator"></i>
               Calculate
             </button>
           </div>
-          <div class="col-sm-6 mb-3">
+          <div class="col-sm-6 mt-3">
             <label for="end-location">
               <strong>Fuel Cost</strong>
             </label>
@@ -112,9 +112,9 @@
             </ul>
           </div>
         </div> <!-- Calculate Fuel Cost -->
-        <div id="error-message" class="alert alert-danger" role="alert">
+        <div id="calculate-error" class="alert alert-danger" role="alert">
           <i class="fa fa-exclamation-circle"></i>
-          Please enter a value for all required fields
+          Valid input required for all fields
         </div>
       </div> <!-- column 2 -->
     </div> <!-- row main-row -->

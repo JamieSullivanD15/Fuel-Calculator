@@ -8,7 +8,7 @@ label {
   font-weight: bold;
   font-size: 16px;
   padding: 0;
-  margin: 0 0 -10px 0; }
+  margin: 0 0 -15px 0; }
 
 .list-group-item {
   height: 37px;
@@ -22,24 +22,22 @@ label {
   padding-left: 5px;
   vertical-align: top; }
 
-#error-message, #calculate-button {
-  font-weight: bold; }
+.error, #location-error, #calculate-error {
+  font-weight: bold;
+  display: none;
+  align-items: center; }
+  .error i, #location-error i, #calculate-error i {
+    font-size: 22px;
+    padding-right: 10px; }
 
 #calculate-button {
+  font-weight: bold;
   font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4px 0; }
   #calculate-button i {
-    padding-right: 10px; }
-
-#error-message {
-  margin-top: 20px;
-  display: none;
-  align-items: center; }
-  #error-message i {
-    font-size: 22px;
     padding-right: 10px; }
 
 @media (max-width: 576px) {
