@@ -1,5 +1,5 @@
 
-const apiKey = 'AIzaSyBNzkiCpla_K_p7-3O4tpSfy8N7ZOto5io';
+const apiKey = config.API_KEY;
 let map, directionsDisplay, directionsService;
 
 function createMap() {
