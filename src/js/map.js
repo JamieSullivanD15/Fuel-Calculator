@@ -44,6 +44,8 @@ function calculateRoute() {
   if (startLocation.value != '' && endLocation.value != '') {
     displayRoute(startLocation.value, endLocation.value, directionsService, directionsDisplay);
   } else {
+    locationError.innerHTML = `<i class="fa fa-exclamation-circle"></i>
+    Please enter a start and end location`;
     locationError.style = 'display: flex;';
     setTimeout(function() {
       locationError.style = 'display: none;';
@@ -62,7 +64,13 @@ function displayRoute(startLocation, endLocation, service, display) {
     if (status === 'OK') {
       display.setDirections(response);
     } else {
-      alert('Could not display directions due to: ' + status);
+      locationError.innerHTML = `<i class="fa fa-exclamation-circle"></i>
+      Unable to find the specified location`;
+      locationError.style = 'display: flex;';
+      setTimeout(function() {
+        locationError.style = 'display: none;';
+      }, 3000);
+      return;
     }
   });
 }

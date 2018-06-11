@@ -59,9 +59,6 @@ function switchFuelConsumptionUnit(unit) {
 function calculateCost() {
   let units;
   let totalCost;
-  console.log(distanceInput.value );
-  console.log(consumptionInput.value );
-  console.log(costInput.value );
 
   if (distanceInput.value != 0 && consumptionInput.value != 0 && costInput.value != 0) {
     units = convertUnits();
@@ -79,18 +76,18 @@ function calculateCost() {
 }
 
 function convertUnits() {
+  // 1 Mile is 1.609344 Kms
+  // 1 Imperial Gallon = 4.54609 Litres
+  // 1 US Gallon = 3.78541 Litres
   let distance = cost = consumption = 0;
   let units = [];
 
   // Distance will always be measured in KM
-  // 1 Mile is 1.609344 Kms
   distanceUnit.innerHTML === 'Miles' ?
     distance = distanceInput.value * 1.609344:
     distance = Number(distanceInput.value);
 
   // Fuel cost will be measured Per Litre
-  // 1 Imperial Gallon = 4.54609 Litres
-  // 1 US Gallon = 3.78541 Litres
   if (fuelCostUnit.innerHTML === 'Per Gal (UK)') {
     cost = costInput.value / 4.54609;
   } else if (fuelCostUnit.innerHTML === 'Per Gal (US)') {
@@ -100,9 +97,6 @@ function convertUnits() {
   }
 
   // Consumption to be measured in KM Per Litre - Convert MPG to L/100km, then to km/L
-  // 1 Imperial Gallon = 4.54609 Liters
-  // 1 US Gallon = 3.78541 Liters
-  // 1 Mile = 1.609344 Kms
   if (consumptionUnit.innerHTML === 'MPG (UK)') {
     consumption = (100 * 4.54609) / (1.609344 * consumptionInput.value);
     consumption = 100 / consumption;
@@ -170,6 +164,8 @@ function calculateRoute() {
   if (startLocation.value != '' && endLocation.value != '') {
     displayRoute(startLocation.value, endLocation.value, directionsService, directionsDisplay);
   } else {
+    locationError.innerHTML = `<i class="fa fa-exclamation-circle"></i>
+    Please enter a start and end location`;
     locationError.style = 'display: flex;';
     setTimeout(function() {
       locationError.style = 'display: none;';
@@ -188,7 +184,13 @@ function displayRoute(startLocation, endLocation, service, display) {
     if (status === 'OK') {
       display.setDirections(response);
     } else {
-      alert('Could not display directions due to: ' + status);
+      locationError.innerHTML = `<i class="fa fa-exclamation-circle"></i>
+      Unable to find the specified location`;
+      locationError.style = 'display: flex;';
+      setTimeout(function() {
+        locationError.style = 'display: none;';
+      }, 3000);
+      return;
     }
   });
 }
