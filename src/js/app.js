@@ -5,7 +5,8 @@ const distanceUnit = document.getElementById('distance-unit'),
       consumptionUnit = document.getElementById('consumption-unit');
 
 // Error message and fuel cost field at the bottom of the layout
-const errorMessage = document.getElementById('error-message'),
+const caculateError = document.getElementById('calculate-error'),
+      locationError = document.getElementById('location-error'),
       totalCostField = document.getElementById('total-cost');
 
 // Input fields for each measurement
@@ -17,7 +18,7 @@ let distanceInput = document.getElementById('total-distance-input'),
 // --- DROPDOWN UNIT SELECTION ---
 // --- DISTANCE ---
 function switchDistanceUnit(unit) {
-  if (unit === 'Km') {
+  if (unit === 'Kilometres') {
     distanceUnit.innerHTML = 'Kilometres';
   } else if (unit === 'Miles') {
     distanceUnit.innerHTML = 'Miles';

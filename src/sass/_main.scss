@@ -1,16 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Amaranth|Anton|Noto+Sans|Oswald|Teko');
+
 .navbar {
-  height: 75px;
+  height: 90px;
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 40px;
+  transform: scaleY(1.1);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
+  // font-family: 'Teko', sans-serif;
+}
+
+img {
+  width: 70px;
+  height: 70px;
 }
 
 label {
   font-weight: bold;
   font-size: 16px;
   padding: 0;
-  margin: 0 0 -10px 0;
+  margin: 0 0 -15px 0;
 }
 
 .list-group-item {
@@ -27,24 +39,8 @@ label {
   vertical-align: top;
 }
 
-#error-message, #calculate-button {
+.error {
   font-weight: bold;
-}
-
-#calculate-button{
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 0;
-
-  i {
-    padding-right: 10px;
-  }
-}
-
-#error-message {
-  margin-top: 20px;
   display: none;
   align-items: center;
 
@@ -52,6 +48,27 @@ label {
     font-size: 22px;
     padding-right: 10px;
   }
+}
+
+.button-style {
+  font-weight: bold;
+  font-size: 18px;
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    padding-right: 10px;
+  }
+}
+
+#location-error, #calculate-error {
+  @extend .error;
+}
+
+#search-button, #calculate-button {
+  @extend .button-style;
 }
 
 footer {

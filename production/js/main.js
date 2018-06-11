@@ -5,7 +5,8 @@ const distanceUnit = document.getElementById('distance-unit'),
       consumptionUnit = document.getElementById('consumption-unit');
 
 // Error message and fuel cost field at the bottom of the layout
-const errorMessage = document.getElementById('error-message'),
+const caculateError = document.getElementById('calculate-error'),
+      locationError = document.getElementById('location-error'),
       totalCostField = document.getElementById('total-cost');
 
 // Input fields for each measurement
@@ -17,7 +18,7 @@ let distanceInput = document.getElementById('total-distance-input'),
 // --- DROPDOWN UNIT SELECTION ---
 // --- DISTANCE ---
 function switchDistanceUnit(unit) {
-  if (unit === 'Km') {
+  if (unit === 'Kilometres') {
     distanceUnit.innerHTML = 'Kilometres';
   } else if (unit === 'Miles') {
     distanceUnit.innerHTML = 'Miles';
@@ -55,25 +56,6 @@ function switchFuelConsumptionUnit(unit) {
 }
 
 
-const startLocation = document.getElementById('start-location-form'),
-      endLocation = document.getElementById('end-location-form');
-
-startLocation.addEventListener('submit', searchStartLocation);
-endLocation.addEventListener('submit', searchEndLocation);
-
-function searchStartLocation(e) {
-  e.preventDefault();
-  let location = document.getElementById('start-location-input').value;
-  console.log(location);
-}
-
-function searchEndLocation(e) {
-  e.preventDefault();
-  let location = document.getElementById('end-location-input').value;
-  console.log(location);
-}
-
-
 function calculateCost() {
   let units;
   let totalCost;
@@ -81,9 +63,9 @@ function calculateCost() {
   if (distanceInput.value != 0 && consumptionInput.value != 0 && costInput.value != 0) {
     units = convertUnits();
   } else {
-    errorMessage.style = 'display: flex;';
+    caculateError.style = 'display: flex;';
     setTimeout(function() {
-      errorMessage.style = 'display: none;';
+      caculateError.style = 'display: none;';
     }, 3000);
     return;
   }
@@ -94,18 +76,18 @@ function calculateCost() {
 }
 
 function convertUnits() {
+  // 1 Mile is 1.609344 Kms
+  // 1 Imperial Gallon = 4.54609 Litres
+  // 1 US Gallon = 3.78541 Litres
   let distance = cost = consumption = 0;
   let units = [];
 
   // Distance will always be measured in KM
-  // 1 Mile is 1.609344 Kms
   distanceUnit.innerHTML === 'Miles' ?
     distance = distanceInput.value * 1.609344:
     distance = Number(distanceInput.value);
 
   // Fuel cost will be measured Per Litre
-  // 1 Imperial Gallon = 4.54609 Litres
-  // 1 US Gallon = 3.78541 Litres
   if (fuelCostUnit.innerHTML === 'Per Gal (UK)') {
     cost = costInput.value / 4.54609;
   } else if (fuelCostUnit.innerHTML === 'Per Gal (US)') {
@@ -115,9 +97,6 @@ function convertUnits() {
   }
 
   // Consumption to be measured in KM Per Litre - Convert MPG to L/100km, then to km/L
-  // 1 Imperial Gallon = 4.54609 Liters
-  // 1 US Gallon = 3.78541 Liters
-  // 1 Mile = 1.609344 Kms
   if (consumptionUnit.innerHTML === 'MPG (UK)') {
     consumption = (100 * 4.54609) / (1.609344 * consumptionInput.value);
     consumption = 100 / consumption;
@@ -140,20 +119,89 @@ function convertUnits() {
 }
 
 
+const apiKey = 'AIzaSyBNzkiCpla_K_p7-3O4tpSfy8N7ZOto5io';
+let map, directionsDisplay, directionsService;
+
 function createMap() {
-  var location = {lat: 53.350733, lng: -6.283442}
+  map = new google.maps.Map(document.getElementById('map'), {
+    scrollwheel: true,
+  });
 
-  var mapOptions = {
-    center: new google.maps.LatLng(location),
-    zoom: 17,
-    scrollwheel: false,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
-
-  var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-  var marker = new google.maps.Marker({
-    position: location,
+  directionsDisplay = new google.maps.DirectionsRenderer({
+    draggable: true,
     map: map
   });
+
+  // Try Geolocation
+  // If found then zoom into their location, if not then present a zoomed out world map
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      let pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setZoom(10);
+      map.setCenter(pos);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    map.setZoom(1);
+    map.setCenter(map.getCenter());
+    map.setMarker()
+  }
+}
+
+function calculateRoute() {
+  let startLocation = document.getElementById('start-location-input'),
+      endLocation = document.getElementById('end-location-input');
+
+  directionsService = new google.maps.DirectionsService();
+
+  directionsDisplay.addListener('directions_changed', function() {
+    computeTotalDistance(directionsDisplay.getDirections());
+  });
+
+  if (startLocation.value != '' && endLocation.value != '') {
+    displayRoute(startLocation.value, endLocation.value, directionsService, directionsDisplay);
+  } else {
+    locationError.innerHTML = `<i class="fa fa-exclamation-circle"></i>
+    Please enter a start and end location`;
+    locationError.style = 'display: flex;';
+    setTimeout(function() {
+      locationError.style = 'display: none;';
+    }, 3000);
+    return;
+  }
+}
+
+function displayRoute(startLocation, endLocation, service, display) {
+  service.route({
+    origin: startLocation,
+    destination: endLocation,
+    travelMode: 'DRIVING',
+    avoidTolls: false
+  }, function(response, status) {
+    if (status === 'OK') {
+      display.setDirections(response);
+    } else {
+      locationError.innerHTML = `<i class="fa fa-exclamation-circle"></i>
+      Unable to find the specified location`;
+      locationError.style = 'display: flex;';
+      setTimeout(function() {
+        locationError.style = 'display: none;';
+      }, 3000);
+      return;
+    }
+  });
+}
+
+function computeTotalDistance(result) {
+  let total = 0;
+  let route = result.routes[0];
+  for (let i = 0; i < route.legs.length; i++) {
+    total += route.legs[i].distance.value;
+  }
+  total = total / 1000;
+  distanceInput.value = total.toFixed(2);
+  distanceUnit.innerHTML = 'Kilometres';
 }
