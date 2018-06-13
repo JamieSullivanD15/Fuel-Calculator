@@ -1,21 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Amaranth|Anton|Noto+Sans|Oswald|Teko');
 
-.navbar {
-  height: 90px;
+.main-text {
+  font-size: 14px;
 }
 
 h1 {
-  font-size: 40px;
   transform: scaleY(1.1);
   letter-spacing: 0.5px;
   text-transform: uppercase;
   font-family: 'Oswald', sans-serif;
   // font-family: 'Teko', sans-serif;
-}
-
-img {
-  width: 70px;
-  height: 70px;
 }
 
 label {
@@ -52,7 +46,7 @@ label {
 
 .button-style {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   padding: 4px 0;
   display: flex;
   align-items: center;
@@ -69,15 +63,4 @@ label {
 
 #search-button, #calculate-button {
   @extend .button-style;
-}
-
-footer {
-  // margin: 0;
-  // padding: 0;
-  // color: white;
-  // height: 40px;
-  // display: flex;
-  // vertical-align: middle;
-  // justify-content: flex-end;
-  // padding-right: 20px;
 }

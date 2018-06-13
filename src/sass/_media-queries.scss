@@ -3,17 +3,44 @@
 @media (max-width: 576px) {
   h1 {
     font-size: 20px;
+    padding-top: 5px;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
   }
 
   .google-map {
     height: 50vh;
   }
+
+  .navbar {
+    height: 60px;
+  }
+
+  .main-text {
+    font-size: 13px;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) {
+  h1 {
+    font-size: 36px;
+  }
+
+  img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .navbar {
+    height: 80px;
+  }
+
   .google-map {
-    height: 70vh;
+    height: 65vh;
   }
 }
 
@@ -22,6 +49,10 @@
   .container-fluid {
     padding: 0px 40px;
   }
+
+  .google-map {
+    height: 80vh;
+  }
 }
 
 // Large devices (desktops, 992px and up)
@@ -29,15 +60,36 @@
   .container-fluid {
     padding: 0px 60px;
   }
+
+  .google-map {
+    height: 100vh;
+  }
 }
 
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
+// Extra large devices (large desktops, 1400px and up)
+@media (min-width: 1400px) {
   .container-fluid {
     padding: 0px 80px;
   }
 
   .google-map {
-    height: 85vh;
+    height: 80vh;
+  }
+
+  .main-text {
+    font-size: 18px;
+  }
+
+  h1 {
+    font-size: 46px;
+  }
+
+  img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .navbar {
+    height: 100px;
   }
 }

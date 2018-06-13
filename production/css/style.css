@@ -1,17 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Amaranth|Anton|Noto+Sans|Oswald|Teko");
-.navbar {
-  height: 90px; }
+.main-text {
+  font-size: 14px; }
 
 h1 {
-  font-size: 40px;
   transform: scaleY(1.1);
   letter-spacing: 0.5px;
   text-transform: uppercase;
   font-family: 'Oswald', sans-serif; }
-
-img {
-  width: 70px;
-  height: 70px; }
 
 label {
   font-weight: bold;
@@ -41,7 +36,7 @@ label {
 
 .button-style, #search-button, #calculate-button {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   padding: 4px 0;
   display: flex;
   align-items: center;
@@ -51,24 +46,52 @@ label {
 
 @media (max-width: 576px) {
   h1 {
-    font-size: 20px; }
+    font-size: 20px;
+    padding-top: 5px; }
+  img {
+    width: 50px;
+    height: 50px; }
   .google-map {
-    height: 50vh; } }
+    height: 50vh; }
+  .navbar {
+    height: 60px; }
+  .main-text {
+    font-size: 13px; } }
 
 @media (min-width: 576px) {
+  h1 {
+    font-size: 36px; }
+  img {
+    width: 60px;
+    height: 60px; }
+  .navbar {
+    height: 80px; }
   .google-map {
-    height: 70vh; } }
+    height: 65vh; } }
 
 @media (min-width: 768px) {
   .container-fluid {
-    padding: 0px 40px; } }
+    padding: 0px 40px; }
+  .google-map {
+    height: 80vh; } }
 
 @media (min-width: 992px) {
   .container-fluid {
-    padding: 0px 60px; } }
+    padding: 0px 60px; }
+  .google-map {
+    height: 100vh; } }
 
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
   .container-fluid {
     padding: 0px 80px; }
   .google-map {
-    height: 85vh; } }
+    height: 80vh; }
+  .main-text {
+    font-size: 18px; }
+  h1 {
+    font-size: 46px; }
+  img {
+    width: 80px;
+    height: 80px; }
+  .navbar {
+    height: 100px; } }

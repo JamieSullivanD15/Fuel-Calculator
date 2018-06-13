@@ -5,6 +5,10 @@ let map, directionsDisplay, directionsService;
 function createMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     scrollwheel: true,
+    zoom: 2,
+    minZoom: 2,
+    center: {lat: 0, lng: -0},
+    gestureHandling: 'greedy'
   });
 
   directionsDisplay = new google.maps.DirectionsRenderer({
@@ -12,23 +16,25 @@ function createMap() {
     map: map
   });
 
+
+  // HTTPS SSL Certificate is needed for Geolocation functions
   // Try Geolocation
   // If found then zoom into their location, if not then present a zoomed out world map
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      let pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      map.setZoom(10);
-      map.setCenter(pos);
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    map.setZoom(1);
-    map.setCenter(map.getCenter());
-    map.setMarker()
-  }
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition(function(position) {
+  //     let pos = {
+  //       lat: position.coords.latitude,
+  //       lng: position.coords.longitude
+  //     };
+  //     map.setZoom(10);
+  //     map.setCenter(pos);
+  //   });
+  // } else {
+  //   // Browser doesn't support Geolocation
+  //   map.setZoom(1);
+  //   map.setCenter(map.getCenter());
+  //   map.setMarker()
+  // }
 }
 
 function calculateRoute() {
