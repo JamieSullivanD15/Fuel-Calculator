@@ -22,6 +22,10 @@
   .main-text {
     font-size: 13px;
   }
+
+  label {
+    font-size: 14px;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -63,6 +67,10 @@
 
   .google-map {
     height: 100vh;
+  }
+
+  .main-text {
+    font-size: 15px;
   }
 }
 

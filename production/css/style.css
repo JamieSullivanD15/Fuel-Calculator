@@ -56,7 +56,9 @@ label {
   .navbar {
     height: 60px; }
   .main-text {
-    font-size: 13px; } }
+    font-size: 13px; }
+  label {
+    font-size: 14px; } }
 
 @media (min-width: 576px) {
   h1 {
@@ -79,7 +81,9 @@ label {
   .container-fluid {
     padding: 0px 60px; }
   .google-map {
-    height: 100vh; } }
+    height: 100vh; }
+  .main-text {
+    font-size: 15px; } }
 
 @media (min-width: 1400px) {
   .container-fluid {
